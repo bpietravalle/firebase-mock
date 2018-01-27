@@ -17254,6 +17254,9 @@ MockFirebase.prototype.set = function (data, callback) {
     self._defer('set', _.toArray(arguments), function () {
       if (err === null) {
         self._dataChanged(data);
+        if (callback) {
+          callback(null, data);
+        }
         resolve(data);
       } else {
         if (callback) {
@@ -17276,6 +17279,9 @@ MockFirebase.prototype.update = function (changes, callback) {
         var data = _.merge(_.isObject(base) ? base : {}, utils.updateToObject(changes));
         data = utils.removeEmptyProperties(data);
         self._dataChanged(data);
+        if (callback) {
+          callback(null, data);
+        }
         resolve(data);
       } else {
         if (callback) {
